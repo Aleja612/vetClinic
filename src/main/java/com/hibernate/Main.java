@@ -11,6 +11,7 @@ import com.hibernate.entity.Appointment;
 import com.hibernate.entity.AppointmentResults;
 import com.hibernate.entity.Pet;
 import com.hibernate.entity.PetOwner;
+import com.hibernate.util.Utils;
 
 public class Main {
 
@@ -19,17 +20,8 @@ public class Main {
 
 	}
 	
-	public static SessionFactory getSessionFactory() {
-		Configuration conf = new Configuration().configure();
-		StandardServiceRegistryBuilder builder = 
-				new StandardServiceRegistryBuilder().applySettings(conf.getProperties());
-		SessionFactory sessionFactory = conf.buildSessionFactory(builder.build());
-		return sessionFactory;
-		
-	}
-
 	public static List<Pet> getAll() {
-		Session session = getSessionFactory().openSession();
+		Session session = Utils.getSessionFactory().openSession();
 		List<Pet> pets = session.createQuery("FROM Pet").list();
 		session.close();
 		System.out.println("Size: " + pets.size());
@@ -38,7 +30,7 @@ public class Main {
 	
 	public static List<PetOwner> getAllO() {
 		Session session = getSessionFactory().openSession();
-		List<PetOwner> owners = session.createQuery("FROM pet_owner").list();
+		List<PetOwner> owners = session.createQuery("FROM petOwner").list();
 		session.close();
 		System.out.println("Size: " + owners.size());
 		return owners;
@@ -46,7 +38,7 @@ public class Main {
 	
 	public static List<Appointment> getAllA() {
 		Session session = getSessionFactory().openSession();
-		List<Appointment> appointments = session.createQuery("FROM appointment").list();
+		List<Appointment> appointments = session.createQuery("FROM Appointment").list();
 		session.close();
 		System.out.println("Size: " + appointments.size());
 		return appointments;
@@ -54,15 +46,15 @@ public class Main {
 	
 	public static List<AppointmentResults> getAllAR() {
 		Session session = getSessionFactory().openSession();
-		List<AppointmentResults> appointmentResults = session.createQuery("FROM appointment_results").list();
+		List<AppointmentResults> appointmentResults = session.createQuery("FROM appointmentResults").list();
 		session.close();
 		System.out.println("Size: " + appointmentResults.size());
 		return appointmentResults;
 	}
 	
-	public static int save(Pet pet) {
-		Session session = getSessionFactory().openSession();
-		session.save(pet);
+	public static int save(Pet pet) {//falta patron de diseño DAO
+		Session session = getSessionFactory().openSession();//por cada entidad un branch
+		session.save(pet);//joins
 		session.close();
 		return pet.getIdPet();
 	}
