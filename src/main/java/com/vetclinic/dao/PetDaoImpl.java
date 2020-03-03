@@ -5,9 +5,10 @@ import java.util.List;
 
 import org.hibernate.Session;
 
+import com.hibernate.entity.Pet;
 import com.hibernate.util.Utils;
 import com.vetclinic.idao.IPetDao;
-import com.vetclinic.model.Pet;
+
 
 public class PetDaoImpl implements IPetDao{
 
@@ -15,42 +16,72 @@ public class PetDaoImpl implements IPetDao{
 	List<Pet> pets;
 	
 	//inicializar los objetos pet y añadirlos a la lista
-		public PetDaoImpl() {
+		/*public PetDaoImpl() {
 			pets = new ArrayList<Pet>();
-			Pet pet1 = new Pet(0,"Deimos", "Perro","Masculino","dos años");
-			Pet pet2 = new Pet(1,"pecas", "Gato","Femenino","seis años");
+			Pet pet1 = new Pet("Deimos", "Perro","Masculino","dos años");
+			Pet pet2 = new Pet("pecas", "Gato","Femenino","seis años");
 			pets.add(pet1);
 			pets.add(pet2);
-		}
+		}*/
 		
 		//get all the pets
-		public List<Pet> getAll(){
+		public List<Pet> getAll(){//por cada entidad crud(Dao) 
 			Session session= Utils.getSessionFactory().openSession();
 			List<Pet> pets= session.createQuery("From Pet ").list();
+			session.close();
 			System.out.println(pets);
 			return pets;
 		}
 		
-		//get a pet for the id
-		public Pet getById(int idPet) {
-			return pets.get(idPet);
-		}
+		
 		
 		//update a pet
-		public void updatePet(Pet pet) {
-			pets.get(pet.getIdPet()).setNamePet(pet.getNamePet());
-			pets.get(pet.getIdPet()).setKindPet(pet.getKindPet());
-			pets.get(pet.getIdPet()).setSexPet(pet.getSexPet());
-			System.out.println("Pet with id"+pet.getIdPet()+"to update satisfactorily");
+		public void updatePet(Integer idPet, Pet newPet) {
+			Session session = Utils.getSessionFactory().openSession();
+			session.beginTransaction();
+			Pet pet = (Pet) session.load(Pet.class,idPet);//este es el de la BD
+			pet.setAgePet(newPet.getAgePet());//el objeto newPet es el que trae la nueva informacion
+			pet.setSexPet(newPet.getSexPet());
+			pet.setKindPet(newPet.getKindPet());
+			pet.setNamePet(newPet.getNamePet());
+			session.update(pet);
+			session.getTransaction().commit();
+			session.close();
 		}
 
 		//delete pet for id
-		public void deletePet(Pet pet) {
-			pets.remove(pet.getIdPet());
-			System.out.println("Pet with id: "+pet.getIdPet()+"removed satisfactorily");
+		public void deletePet(Integer idPet) {
+			Session session= Utils.getSessionFactory().openSession();
+			session.beginTransaction();
+			Pet pet =(Pet) session.load(Pet.class, idPet);
+			session.delete(pet);
+			session.getTransaction().commit();
+			session.close();
+			}
+
+		public int savePet (Pet pet) {
+			Session session= Utils.getSessionFactory().openSession();
+			session.save(pet);
+			session.close();
+			return pet.getIdPet();
+			
+		}
+
+		public Pet getById(Integer idPet) {
+			Session session= Utils.getSessionFactory().openSession();
+			//se hace un casting porque retorna un tipo object a tipo pet
+			//leer casting en java
+			Pet pet= (Pet)session.get(Pet.class, idPet);//get retorna el tipo de dato que se coloque en los parametros
+			return pet;
 		}
 
 		
+		
+		
+
+		
+
+	
 		
 		
 }

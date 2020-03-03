@@ -44,14 +44,13 @@ public Pet() {
 	
 }
 
-public Pet(Integer idPet, String namePet, String kindPet, String sexPet, String agePet, List<Appointment> appointments) {
+public Pet( String namePet, String kindPet, String sexPet, String agePet) {
 	super();
-	this.idPet = idPet;
 	this.namePet = namePet;
 	this.kindPet = kindPet;
 	this.sexPet = sexPet;
 	this.agePet = agePet;
-	this.appointments=appointments;
+
 }
 
 public Integer getIdPet() {
