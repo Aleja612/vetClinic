@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,16 +18,19 @@ public class AppointmentResults {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_appointment_results")
-	private Integer IdAppointmentResults;
+	private Integer idAppointmentResults;
 	
 	@Column(name="name_pet")
 	private String namePet;
 	
 	@Column(name="prescription_drugs")
 	private Date prescriptionDrugs;
+	//fetch->consultar
+	//laizy solo la entidad
+	//eager->codicioso :v todo lo relacionado
 	
-	@OneToOne(mappedBy = "appointmentResults", cascade = CascadeType.ALL)
-    private Appointment appointment;
+	@OneToOne(fetch=FetchType.EAGER, mappedBy="appointmentResults", cascade = CascadeType.ALL)//mappedBy nombre de la variable que esta en la otra tabla 
+    private Appointment idAppointment;
 	
 	public AppointmentResults() {
 		
@@ -34,18 +38,18 @@ public class AppointmentResults {
 
 	public AppointmentResults(Integer idAppointment, String namePet, Date prescriptionDrugs) {
 		super();
-		IdAppointmentResults = idAppointment;
+		idAppointmentResults = idAppointment;
 		this.namePet = namePet;
 		this.prescriptionDrugs = prescriptionDrugs;
 		
 	}
 
 	public Integer getIdAppointmentResults() {
-		return IdAppointmentResults;
+		return idAppointmentResults;
 	}
 
 	public void setIdAppointmentResults(Integer idAppointment) {
-		IdAppointmentResults = idAppointment;
+		idAppointmentResults = idAppointment;
 	}
 
 	public String getNamePet() {
@@ -66,7 +70,7 @@ public class AppointmentResults {
 
 	@Override
 	public String toString() {
-		return "AppointmentResults [IdAppointment=" + IdAppointmentResults + ", namePet=" + namePet + ", prescriptionDrugs="
+		return "AppointmentResults [IdAppointment=" + idAppointmentResults + ", namePet=" + namePet + ", prescriptionDrugs="
 				+ prescriptionDrugs + "]";
 	}
 	
