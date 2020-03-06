@@ -4,9 +4,8 @@ import java.util.List;
 
 import com.hibernate.entity.Pet;
 import com.vetclinic.dao.PetDaoImpl;
-import com.vetclinic.dao.PetOwnerDaoImpl;
 import com.vetclinic.idao.IPetDao;
-import com.vetclinic.idao.IPetOwnerDao;
+
 
 
 public class DaoTest {
@@ -36,6 +35,7 @@ public class DaoTest {
 		//System.out.println(pet);
 		
 		//update pet
+		//como se actulizan las entidades relacionadas en hibernate
 		Pet pet = new Pet("Nala","Perro","Femenino","tres meses");
 		petDao.updatePet(5,pet);
 		

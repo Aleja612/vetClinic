@@ -32,9 +32,6 @@ public class PetDaoImpl implements IPetDao{
 			System.out.println(pets);
 			return pets;
 		}
-		
-		
-		
 		//update a pet
 		public void updatePet(Integer idPet, Pet newPet) {
 			Session session = Utils.getSessionFactory().openSession();
