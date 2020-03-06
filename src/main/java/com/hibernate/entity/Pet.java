@@ -22,16 +22,16 @@ public class Pet {
 private Integer idPet;
 
 @Column(name="name_pet")
-private Integer namePet;
+private String namePet;
 
 @Column(name="kind_pet")
-private Integer kindPet;
+private String kindPet;
 
 @Column(name="sex_pet")
-private Integer sexPet;
+private String sexPet;
 
 @Column(name="age_pet")
-private Integer agePet;
+private String agePet;
 
 @ManyToOne(cascade= {CascadeType.PERSIST,CascadeType.MERGE})
 @JoinColumn(name="id_pet_owner",referencedColumnName="id_pet_owner")
@@ -44,14 +44,13 @@ public Pet() {
 	
 }
 
-public Pet(Integer idPet, Integer namePet, Integer kindPet, Integer sexPet, Integer agePet, List<Appointment> appointments) {
+public Pet( String namePet, String kindPet, String sexPet, String agePet) {
 	super();
-	this.idPet = idPet;
 	this.namePet = namePet;
 	this.kindPet = kindPet;
 	this.sexPet = sexPet;
 	this.agePet = agePet;
-	this.appointments=appointments;
+
 }
 
 public Integer getIdPet() {
@@ -62,35 +61,35 @@ public void setIdPet(Integer idPet) {
 	this.idPet = idPet;
 }
 
-public Integer getNamePet() {
+public String getNamePet() {
 	return namePet;
 }
 
-public void setNamePet(Integer namePet) {
+public void setNamePet(String namePet) {
 	this.namePet = namePet;
 }
 
-public Integer getKindPet() {
+public String getKindPet() {
 	return kindPet;
 }
 
-public void setKindPet(Integer kindPet) {
+public void setKindPet(String kindPet) {
 	this.kindPet = kindPet;
 }
 
-public Integer getSexPet() {
+public String getSexPet() {
 	return sexPet;
 }
 
-public void setSexPet(Integer sexPet) {
+public void setSexPet(String sexPet) {
 	this.sexPet = sexPet;
 }
 
-public Integer getAgePet() {
+public String getAgePet() {
 	return agePet;
 }
 
-public void setAgePet(Integer agePet) {
+public void setAgePet(String agePet) {
 	this.agePet = agePet;
 }
 
