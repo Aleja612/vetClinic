@@ -24,7 +24,7 @@ public class AppointmentResults {
 	private String namePet;
 	
 	@Column(name="prescription_drugs")
-	private Date prescriptionDrugs;
+	private String prescriptionDrugs;
 	//fetch->consultar
 	//laizy solo la entidad
 	//eager->codicioso :v todo lo relacionado
@@ -36,7 +36,7 @@ public class AppointmentResults {
 		
 	}
 
-	public AppointmentResults(Integer idAppointment, String namePet, Date prescriptionDrugs) {
+	public AppointmentResults(Integer idAppointment, String namePet, String prescriptionDrugs) {
 		super();
 		idAppointmentResults = idAppointment;
 		this.namePet = namePet;
@@ -60,11 +60,11 @@ public class AppointmentResults {
 		this.namePet = namePet;
 	}
 
-	public Date getPrescriptionDrugs() {
+	public String getPrescriptionDrugs() {
 		return prescriptionDrugs;
 	}
 
-	public void setPrescriptionDrugs(Date prescriptionDrugs) {
+	public void setPrescriptionDrugs(String prescriptionDrugs) {
 		this.prescriptionDrugs = prescriptionDrugs;
 	}
 
