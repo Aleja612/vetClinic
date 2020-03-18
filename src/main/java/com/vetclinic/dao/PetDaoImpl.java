@@ -1,5 +1,6 @@
 package com.vetclinic.dao;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +47,24 @@ public class PetDaoImpl implements IPetDao{
 			session.close();
 		}
 
+		/*public int savePet (Pet pet1) {
+		Session session= Utils.getSessionFactory().openSession();
+		session.save(pet1);
+		session.close();
+		return pet1.getIdPet();
+		
+	}*/
+	public int savePet (Pet pet) {
+		Session session= Utils.getSessionFactory().openSession();
+		session.beginTransaction();
+		Object savedPet = session.save(pet);//save retorno un objeto de tipo object-->guarde la mascota y se lo asigne al objeto
+		Integer newIdPet = (Integer)savedPet;
+		session.getTransaction().commit();
+		session.close();
+		return newIdPet;//tipo de retorno Integer, no Object.
+		
+	}
+
 		//delete pet for id
 		public void deletePet(Integer idPet) {
 			Session session= Utils.getSessionFactory().openSession();
@@ -56,14 +75,7 @@ public class PetDaoImpl implements IPetDao{
 			session.close();
 			}
 
-		public int savePet (Pet pet) {
-			Session session= Utils.getSessionFactory().openSession();
-			session.save(pet);
-			session.close();
-			return pet.getIdPet();
-			
-		}
-
+		
 		public Pet getById(Integer idPet) {
 			Session session= Utils.getSessionFactory().openSession();
 			//se hace un casting porque retorna un tipo object a tipo pet

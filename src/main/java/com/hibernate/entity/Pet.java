@@ -35,7 +35,7 @@ private String agePet;
 
 @ManyToOne(cascade= {CascadeType.PERSIST,CascadeType.MERGE})
 @JoinColumn(name="id_pet_owner",referencedColumnName="id_pet_owner")
-private PetOwner petOwner;
+private PetOwner petOwner;//atributo petOwner de la clase
 
 @OneToMany(mappedBy="idPetA")
 List<Appointment> appointments;
@@ -50,6 +50,15 @@ public Pet( String namePet, String kindPet, String sexPet, String agePet) {
 	this.kindPet = kindPet;
 	this.sexPet = sexPet;
 	this.agePet = agePet;
+
+}
+public Pet( String namePet, String kindPet, String sexPet, String agePet,PetOwner petOwner) {
+	super();
+	this.namePet = namePet;
+	this.kindPet = kindPet;
+	this.sexPet = sexPet;
+	this.agePet = agePet;
+	this.petOwner=petOwner;
 
 }
 

@@ -45,7 +45,7 @@ public class Appointment {
 	
 	@OneToOne(cascade=CascadeType.ALL)
 	@PrimaryKeyJoinColumn
-	private AppointmentResults AppointmentResults;
+	private AppointmentResults appointmentResults;
 	
 	public Appointment() {
 		
